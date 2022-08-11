@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/',
     name: 'root',
-    component: () => import(/* webpackChunkName: 'index' */ '../pages/Home.vue')
+    component: () => import(/* webpackChunkName: 'index' */ '../pages/Navbar.vue')
   },
   {
     path: '/list',

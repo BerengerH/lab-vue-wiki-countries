@@ -1,31 +1,54 @@
 <!-- src/App.js -->
 <template>
-<div id="app">
-  <router-view></router-view>
-</div>
+  <div id="app">
+    <router-view></router-view>
+    <div class="container">
+      <div class="raw">
+        <div class="col-5" style="max-height: 90vh; overflow: scroll">
+          <div class="list-group">
+            <CountriesList v-for="country in countries" :country="country" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-  import logo from './logo.svg';
-  export default {
-    data: () => ({
-      logo
-    })
-  }
+import logo from "./logo.svg";
+import CountriesList from "./pages/CountriesList.vue";
+
+export default {
+  data() {
+    return {
+      logo,
+      countries: null,
+    };
+  },
+  async mounted() {
+    const res = await fetch("https://ih-countries-api.herokuapp.com/countries");
+    const finalRes = await res.json();
+    console.log(finalRes);
+    this.countries = finalRes;
+  },
+  components: {
+    CountriesList,
+},
+};
 </script>
 
 <style>
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -67,5 +90,4 @@ code {
     transform: rotate(360deg);
   }
 }
-
 </style>
